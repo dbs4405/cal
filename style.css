@@ -1,0 +1,71 @@
+*, *:before, *:after {
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+html {
+	height: 101%;
+}
+
+.block {
+	float: left;
+	margin: 2px;
+	background: black;
+	color: white;
+	padding: 10px 15px;
+	text-align: center;
+	font-size: 12px;
+	width: 90px;
+}
+
+.blank {
+	width: 90px;
+	background: #ccc;
+}
+
+.blank .day-of-month {
+	color: black;
+}
+
+.day-of-month {
+	font-size: 30px;
+	padding: 5px 0;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+
+.main-button {
+	color: white;
+	text-decoration: none;
+	padding: 8px 16px 9px;
+	background: #CC2F2F;
+	display: inline-block;
+	border-radius: 3px;
+}
+
+.main-button:hover {
+	background: #B22020;
+}
+
+.the-question {
+	text-align: center;
+	width: 280px;
+	height: 160px;
+	border: 1px solid rgba(0,0,0,.3);
+	border-radius: 5px;
+	margin: auto;
+	position: absolute;
+	top: 0; 
+	left: 0; 
+	bottom: 0; 
+	right: 0;
+	padding: 10px 20px 20px 20px;
+	color: #B22020;
+	background: #fff;
+}
+
+.the-question:hover {
+	background: transparent;
+}
