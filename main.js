@@ -3,6 +3,8 @@ var fb = new Firebase("https://dbschain.firebaseio.com/");
 
 var whenDataLoaded = $.Deferred();
 var appData;
+var good = 0;
+var bad = 0;
 
 fb.on('value', function (snapshot) {  
     $('.block').remove();
@@ -41,8 +43,17 @@ fb.on('value', function (snapshot) {
     whenDataLoaded.resolve();
 });
 
+function tally (good, bad) {
+    console.log ("Total days =  " + (good + bad));
+    console.log(("Good days = " + good));
+}
+
+
 function makeBlock (currentDay) {  
+    console.log("test");
     if (currentDay !== 'blank') {
+        good++;
+        console.log("good = ");
         var momentObj = moment(currentDay, 'MM/DD/YYYY');
         var dayOfMonth = momentObj.date();
         var monthName = momentObj.format('MMMM');
@@ -55,6 +66,7 @@ function makeBlock (currentDay) {
             .addClass('block')
             .appendTo('body');
     } else {
+        bad++;
         $('<div></div>')
             .append('<div>&nbsp;</div>')
             .append('<div class="day-of-month">x</div>')
@@ -62,7 +74,9 @@ function makeBlock (currentDay) {
             .addClass('block blank')
             .appendTo('body');
     }
+    tally (good, bad);
 }
+
 
 function saveDate (newDate) {
 	whenDataLoaded.done(function () {
@@ -75,6 +89,32 @@ function saveDate (newDate) {
 
 		fb.set(appData);
 	});
+}
+
+function addMonth (monthNum, percentCompleted) {  
+    monthNum = monthNum < 10 ? '0' + parseInt(monthNum) : monthNum;
+    var month = moment(monthNum + '/01/' + moment().year());
+    var numDaysInMonth = month.daysInMonth();
+    var extraZero;
+    var daysInMonth = [];
+
+    for (var i=1; i < (numDaysInMonth + 1); i++) {
+        if (i < 10) {
+            extraZero = '0';
+        } else {
+            extraZero = '';
+        }
+
+        if (!percentCompleted || Math.random() < (percentCompleted / 100)) {
+            daysInMonth.push(monthNum + '/' + extraZero + i + '/2014');
+        }
+    }
+
+    if (!appData) {
+        appData = [];
+    }
+
+    fb.set(appData.concat(daysInMonth));
 }
 
 $('.main-button').click(function (event) {
